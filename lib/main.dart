@@ -151,8 +151,8 @@ class Wip extends StatelessWidget {
 class RequeteTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var connecter = new Connecter(
-        url: "https://steeunivpau-edt2021.hyperplanning.fr/hp/etudiants");
+    var connecter =
+        new Connecter(url: "https://steeunivpau-edt2021.hyperplanning.fr/hp/");
 
     return Container(
       child: FutureBuilder(
