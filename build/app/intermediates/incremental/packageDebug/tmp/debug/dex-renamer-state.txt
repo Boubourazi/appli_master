@@ -1,4 +1,4 @@
-#Tue Sep 29 18:20:44 CEST 2020
+#Thu Oct 01 10:13:57 CEST 2020
 base.0=C\:\\Users\\aurel\\OneDrive\\Bureau\\Flutter\\appli_master\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

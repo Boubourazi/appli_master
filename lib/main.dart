@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'school.dart';
 import 'requete.dart';
-import 'package:html/parser.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Hypperplanning'),
@@ -164,9 +163,15 @@ class RequeteTest extends StatelessWidget {
           indexOfSession += 4;
           if (snapshot.connectionState == ConnectionState.done) {
             return SingleChildScrollView(
-                child: Text("Session : " +
+                child: Text("SessionTest" +
+                    connecter.cleSession['sessionId'] +
+                    "\nSession : " +
                     snapshot.data
                         .substring(indexOfSession, indexOfSession + 7) +
+                    "\nExposant : " +
+                    connecter.cleSession['exposant'] +
+                    "\nModuloTest:" +
+                    connecter.cleSession['modulo'] +
                     "\nModulo:" +
                     snapshot.data
                         .substring(indexOfModulo + 4, indexOfModulo + 260)));

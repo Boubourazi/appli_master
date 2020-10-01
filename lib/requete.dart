@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart';
 
 class Connecter {
   String url;
@@ -9,11 +8,10 @@ class Connecter {
   var client = http.Client();
   Future<String> sessionId;
 
-
   Map<String, String> cleSession = {
-    'sessionId' : null,
-    'modulo' : null,
-    'exposant' : null
+    'sessionId': null,
+    'modulo': null,
+    'exposant': null
   };
 
   Connecter({@required String url}) {
@@ -24,32 +22,38 @@ class Connecter {
     return requestStream.first;
   }
 
-
   Future<String> makeGetRequest() async {
+    // Operational
     String response = await this.client.read(this.url + 'etudiants', headers: {
       'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
-    }).then((value)  {
-      var indexOfSession = value.indexOf(new RegExp(',i'));
+    }).then((value) {
+      var indexOfSession = value.indexOf(new RegExp(',i')) + 4;
       var indexOfModulo = value.indexOf(new RegExp('MR:')) + 4;
-      var indexOfExposant = value.indexOf(new RegExp('ER:'));
+      var indexOfExposant = value.indexOf(new RegExp('ER:')) + 4;
 
-      this.cleSession['sessionId'] = value.substring(indexOfSession, indexOfSession + 7); //Session id is a 7-number digit
-      this.cleSession['modulo'] = value.substring(indexOfModulo, indexOfModulo + 256); // Modulo is a 256 chars number(hexa)
-      this.cleSession['exposant'] = value.substring(indexOfExposant, indexOfExposant + 256); // Exposant is a 256 chars number(binary)
+      this.cleSession['sessionId'] = value.substring(
+          indexOfSession, indexOfSession + 7); //Session id is a 7-number digit
+      this.cleSession['modulo'] = value.substring(indexOfModulo,
+          indexOfModulo + 256); // Modulo is a 256 chars number(hexa)
+      this.cleSession['exposant'] = value.substring(indexOfExposant,
+          indexOfExposant + 256); // Exposant is a 256 chars number(binary)
       return value;
     });
     return response;
   }
 
-  Future<String> makePostRequest (Map<String, String> parameters) async(){
-    String response = await this.client.post(url).then((value) => null).catchError(onError);
-    return 
+  Future<String> makePostRequest(Map<String, String> parameters) async {
+    String response = await this
+        .client
+        .post(url)
+        .then((value) => null)
+        .catchError((onError) => print(onError));
+    return response;
   }
 
-  void handlePostResponse(){
-    
-  }
+  void handlePostResponse() {}
 
-  String makePostUrl(url, sessionId, numeroOrdre) => (url + 'appelfonction/2/' + sessionId + numeroOrdre);
+  String makePostUrl(url, sessionId, numeroOrdre) =>
+      (url + 'appelfonction/2/' + sessionId + numeroOrdre);
 }
