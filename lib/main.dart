@@ -157,24 +157,18 @@ class RequeteTest extends StatelessWidget {
       child: FutureBuilder(
         future: connecter.makeGetRequest(),
         builder: (context, snapshot) {
-          var indexOfSession = snapshot.data.indexOf(new RegExp(',i'));
-          var indexOfModulo = snapshot.data.indexOf(new RegExp('MR:'));
-          var indexOfExposant = snapshot.data.indexOf(new RegExp('ER:'));
-          indexOfSession += 4;
           if (snapshot.connectionState == ConnectionState.done) {
-            return SingleChildScrollView(
-                child: Text("SessionTest" +
-                    connecter.cleSession['sessionId'] +
-                    "\nSession : " +
-                    snapshot.data
-                        .substring(indexOfSession, indexOfSession + 7) +
-                    "\nExposant : " +
-                    connecter.cleSession['exposant'] +
-                    "\nModuloTest:" +
-                    connecter.cleSession['modulo'] +
-                    "\nModulo:" +
-                    snapshot.data
-                        .substring(indexOfModulo + 4, indexOfModulo + 260)));
+            return FutureBuilder(
+              future: connecter.makePostRequest(),
+              builder: (context, snapshotPost) {
+                if (snapshotPost.connectionState == ConnectionState.done) {
+                  return Text(
+                      "ResultatPost:" + snapshotPost.data.length ?? "tomate");
+                } else {
+                  return Text("Get ok, waiting for Post...");
+                }
+              },
+            );
           } else {
             return Text("Connecting");
           }
