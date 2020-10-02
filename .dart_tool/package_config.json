@@ -160,5 +160,6 @@
   ],
   "generated": "2020-09-30T13:10:31.098161Z",
   "generator": "pub",
-  "generatorVersion": "2.9.2"
+  "generatorVersion": "2.9.2",
+  "test" : "ceci est un gitignore test"
 }
